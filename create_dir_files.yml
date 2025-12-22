@@ -1,0 +1,21 @@
+---
+- name: Create directory and files using Ansible
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Create directory with 766 permission
+      file:
+        path: /ansible_test_dir
+        state: directory
+        mode: '0766'
+
+    - name: Create empty files inside directory
+      file:
+        path: "/ansible_test_dir/{{ item }}"
+        state: touch
+        mode: '0755'
+      loop:
+        - file1.txt
+        - file2.txt
+
